@@ -1,7 +1,6 @@
 import react, {useEffect, useState} from 'react';
 import { useDebounce } from './utlilities';
 import axios from 'axios';
-import logo from './logo.svg';
 import './App.scss';
 
 const apiStuff = {
@@ -15,7 +14,7 @@ function App() {
 
   const [searchTerm, setSearchTerm ] = useState('Search Me!');
   const [ results, setResults ] = useState([]);
-  const [menuOpen, setMenuOpen] = useState= (false);
+  // const [menuOpen, setMenuOpen] = useState= (false);
   const debounceSearchTerm = useDebounce(searchTerm, 500);
   console.log(searchTerm);
 
@@ -64,17 +63,22 @@ function App() {
       <aside className="sidebar">
         Sidebar
       </aside>
-      <button className="hamburger">Hamburger</button>
-      <h1>My movie search app</h1>
-      <button onClick={() => sortMovies(results, 'asc')}>Sort ASC</button>
-      <button onClick={() => sortMovies(results, 'dsc')}>Sort DSC</button>
+      {/* <button className="hamburger">Hamburger</button> */}
+      <div className="search">
+        <h1>My movie search app</h1>
+        <div className="search-btn">
+          <button onClick={() => sortMovies(results, 'asc')}>Sort ASC</button>
+          <button onClick={() => sortMovies(results, 'dsc')}>Sort DSC</button>
+        </div>
+        
+      </div>
 
       <input type="text" 
       value={searchTerm} 
       onChange={(e) => setSearchTerm(e.target.value)} />
       {results.map((result, i )=> (
-        <div className="body">
-          <figure key={i}>
+        <div className="body" key={i}>
+          <figure >
             {result.poster_path ? <img src={`https://image.tmdb.org/t/p/w200/${result.poster_path}`} alt={result.title} /> : null};
             <figcaption>{result.title}</figcaption>
             <p>{result.release_date}</p>
